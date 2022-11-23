@@ -1,4 +1,7 @@
 using Club_in_API.UserType.ApplicationDBContext;
+using Club_in_API.UserType.Model;
+using FluentValidation;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +16,8 @@ builder.Services.AddDbContext<UserTypeContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConexionDatabase"));
 });
+builder.Services.AddMediatR(typeof(User).Assembly);
+builder.Services.AddValidatorsFromAssemblyContaining<User>();
 
 var app = builder.Build();
 
